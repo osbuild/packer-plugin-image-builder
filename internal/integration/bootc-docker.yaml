@@ -1,0 +1,48 @@
+---
+fixtures:
+  - request: which podman
+    status: 1
+
+  - request: which docker
+    reply: /usr/bin/docker
+
+  - request: mkdir ./output-\w+
+
+  - request: sudo /usr/bin/docker pull quay.io/centos-bootc/centos-bootc:stream9
+
+  - request: scp -t /tmp
+
+  - request: >-
+      sudo /usr/bin/docker run --privileged --rm --pull=newer
+      --security-opt label=type:unconfined_t
+      -v /var/lib/containers/storage:/var/lib/containers/storage
+      -v ./output-\w+:/output -v /tmp/ibpacker-\w+.toml:/config.toml:ro
+      quay.io/centos-bootc/bootc-image-builder:latest
+      --type raw --local --rootfs xfs
+      quay.io/centos-bootc/centos-bootc:stream9 2>&1 \| tee ./output-\w+/build.log &&
+      find ./output-\w+ -type f
+    reply: Building image...
+
+  - request: rm -f /tmp/ibpacker-\w+.toml
+
+template: |+
+  source "image-builder" "example" {
+      build_host {
+          hostname = "{{ .Hostname }}"
+      }
+      container_repository = "quay.io/centos-bootc/centos-bootc:stream9"
+      rootfs = "xfs"
+      blueprint = <<BLUEPRINT
+  [[customizations.user]]
+  name = "user"
+  password = "changeme"
+  groups = ["wheel"]
+  BLUEPRINT
+      image_type = "raw"
+  }
+  build {
+      sources = [ "source.image-builder.example" ]
+  }
+
+result:
+  grep: "Builds finished. The artifacts of successful builds are:"

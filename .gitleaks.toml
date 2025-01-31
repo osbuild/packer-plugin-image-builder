@@ -1,0 +1,6 @@
+[allowlist]
+description = "Global Allowlist"
+
+paths = [
+    '''internal\/sshtest\/keys.go$''',
+]

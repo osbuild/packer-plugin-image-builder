@@ -1,0 +1,25 @@
+---
+fixtures:
+  - request: which podman
+    status: 1
+
+  - request: which docker
+    status: 1
+
+template: |+
+  source "image-builder" "example" {
+      build_host {
+          hostname = "{{ .Hostname }}"
+      }
+      distro = "centos-9"
+      architecture = "x86_64"
+      blueprint = ""
+      image_type = "minimal-raw"
+  }
+  build {
+      sources = [ "source.image-builder.example" ]
+  }
+
+result:
+  grep: "error while configuring: which: no container runtime found"
+  status: 1

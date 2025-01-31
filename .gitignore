@@ -1,0 +1,5 @@
+/.vscode
+/build
+/packer-plugin-*
+/*.log
+/_*.pkr.hcl
