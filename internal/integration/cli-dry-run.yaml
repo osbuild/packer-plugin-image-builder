@@ -1,0 +1,39 @@
+---
+fixtures:
+  - request: which podman
+    reply: /usr/bin/podman
+
+  - request: mkdir ./output-\w+
+
+  - request: scp -t /tmp
+
+  - request: >-
+      echo sudo /usr/bin/podman run --privileged --rm
+      -v ./output-\w+:/output
+      -v /tmp/ibpacker-\w+.toml:/tmp/ibpacker-\w+.toml
+      ghcr.io/osbuild/image-builder-cli:latest build
+      --blueprint /tmp/ibpacker-\w+.toml
+      --distro fedora minimal-raw 2>&1 \| tee ./output-\w+/build.log
+      && find ./output-\w+ -type
+    reply: Building image...
+
+  - request: rm -f /tmp/ibpacker-\w+.toml
+
+environment:
+  - IMAGE_BUILDER_DRY_RUN=1
+
+template: |+
+  source "image-builder" "example" {
+      build_host {
+          hostname = "{{ .Hostname }}"
+      }
+      distro = "fedora"
+      blueprint = ""
+      image_type = "minimal-raw"
+  }
+  build {
+      sources = [ "source.image-builder.example" ]
+  }
+
+result:
+  grep: "Builds finished. The artifacts of successful builds are:"

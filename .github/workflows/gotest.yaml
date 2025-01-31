@@ -1,0 +1,46 @@
+---
+name: checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  GO_VERSION: 1.23.4
+
+jobs:
+  commit:
+    name: "💬 Commit checks"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
+          path: code
+      - uses: actions/checkout@v3
+        with:
+          repository: "RHEnVision/changelog"
+          path: changelog
+      - run: pip3 install ./changelog
+      - run: |
+          python -m rhenvision_changelog commit-check || echo "::warning ::Commit message is not formatted correctly"
+        working-directory: code
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+
+  tests:
+    name: "🏫 Go lint and tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - uses: dominikh/staticcheck-action@v1
+        with:
+          version: "latest"
+      - run: |
+          make tests
