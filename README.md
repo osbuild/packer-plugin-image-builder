@@ -24,9 +24,9 @@ builder ALL=(ALL) NOPASSWD: /usr/bin/podman, /usr/bin/docker
 EOF
 ```
 
-Finally, install podman or docker:
+Finally, install podman or docker and make sure scp is present as well:
 
-    dnf -y install podman
+    dnf -y install podman openssh-clients
 
 Cross-architecture building is currently not supported so make sure the builder host architecture is correct.
 
