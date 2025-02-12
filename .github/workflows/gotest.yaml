@@ -43,4 +43,4 @@ jobs:
         with:
           version: "latest"
       - run: |
-          make tests
+          make test
