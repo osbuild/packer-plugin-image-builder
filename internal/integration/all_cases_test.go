@@ -8,7 +8,7 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/lzap/packer-plugin-image-builder/internal/sshtest"
+	"github.com/osbuild/packer-plugin-image-builder/internal/sshtest"
 	yaml "gopkg.in/yaml.v2"
 )
 

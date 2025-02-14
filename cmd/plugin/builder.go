@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/packer-plugin-sdk/common"
 	"github.com/hashicorp/packer-plugin-sdk/packer"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
-	ibk "github.com/lzap/packer-plugin-image-builder"
+	ibk "github.com/osbuild/packer-plugin-image-builder"
 )
 
 type Config struct {
