@@ -23,7 +23,7 @@ import (
 	"time"
 
 	"github.com/hashicorp/logutils"
-	ibk "github.com/lzap/packer-plugin-image-builder"
+	ibk "github.com/osbuild/packer-plugin-image-builder"
 )
 
 func cli(ctx context.Context, args []string) {

@@ -183,7 +183,7 @@ If you want to perform, for any reason, a dry run where the main build command i
 
 To test this library directly without packer, do:
 
-    go run github.com/lzap/packer-plugin-image-builder/cmd/ibpacker/ -help
+    go run github.com/osbuild/packer-plugin-image-builder/cmd/ibpacker/ -help
 
 Use options to initiate a build:
 
@@ -208,10 +208,11 @@ Usage of ibpacker:
 For example:
 
 ```
-git clone github.com/lzap/packer-plugin-image-builder
+git clone https://github.com/osbuild/packer-plugin-image-builder
 go run ./cmd/ibpacker/ \
     -hostname example.com \
     -username builder \
+    cli
     -distro centos-9 \
     -type minimal-raw \
     -blueprint ./cmd/ibpacker/blueprint_example.toml

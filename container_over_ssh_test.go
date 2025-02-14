@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	ibk "github.com/lzap/packer-plugin-image-builder"
-	"github.com/lzap/packer-plugin-image-builder/internal/sshtest"
+	ibk "github.com/osbuild/packer-plugin-image-builder"
+	"github.com/osbuild/packer-plugin-image-builder/internal/sshtest"
 )
 
 func TestContainerOverSSH(t *testing.T) {
