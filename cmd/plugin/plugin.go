@@ -19,8 +19,7 @@ func init() {
 	var metadata string
 	if bi, ok := debug.ReadBuildInfo(); ok {
 		for _, bs := range bi.Settings {
-			switch bs.Key {
-			case "vcs.revision":
+			if bs.Key == "vcs.revision" {
 				if len(bs.Value) > 7 {
 					metadata = bs.Value[0:7]
 				}
