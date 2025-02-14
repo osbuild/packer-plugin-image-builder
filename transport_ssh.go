@@ -197,7 +197,7 @@ var noopCallback ssh.HostKeyCallback = func(_ string, _ net.Addr, _ ssh.PublicKe
 type ExecuteOpt func(*ssh.Session)
 
 // WithStdinWriter configures the SSH session to use the specified writer for standard input.
-func WithCombinedWriter(w *CombinedWriter) ExecuteOpt {
+func WithCombinedWriter(w *SyncedBuffer) ExecuteOpt {
 	return func(s *ssh.Session) {
 		s.Stdout = w
 		s.Stderr = w

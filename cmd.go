@@ -78,7 +78,7 @@ func ApplyCommandPrint(ctx context.Context, c Command, t Transport, log PrintFun
 var ErrNoContainerRuntime = errors.New("no container runtime found")
 
 func which(ctx context.Context, exec Executor, name ...string) (string, error) {
-	buf := &CombinedWriter{}
+	buf := &SyncedBuffer{}
 	for _, n := range name {
 		cmd := "which " + n
 		err := exec.Execute(ctx, StringCommand(cmd), WithCombinedWriter(buf))
@@ -95,7 +95,7 @@ func which(ctx context.Context, exec Executor, name ...string) (string, error) {
 }
 
 func tail1(ctx context.Context, exec Executor, cmd string) (string, error) {
-	buf := &CombinedWriter{}
+	buf := &SyncedBuffer{}
 	log.Printf("[DEBUG] Running command %q", cmd)
 	err := exec.Execute(ctx, StringCommand(cmd), WithCombinedWriter(buf))
 	if err != nil {

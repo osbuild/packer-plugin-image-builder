@@ -244,7 +244,7 @@ func TestContainerOverSSH(t *testing.T) {
 			server.Handler = sshtest.RequestReplyHandler(t, tt.session)
 			defer server.Close()
 
-			buf := &ibk.CombinedWriter{}
+			buf := &ibk.SyncedBuffer{}
 			client, err := ibk.NewSSHTransport(ibk.SSHTransportConfig{
 				Host:        server.Endpoint,
 				Username:    "test",
