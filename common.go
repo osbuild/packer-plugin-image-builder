@@ -9,20 +9,23 @@ import (
 	"time"
 )
 
-// CombinedWriter is a writer that writes to a buffer and is safe for concurrent use.
-type CombinedWriter struct {
+// SyncedBuffer is a concurrent buffer writer. Can be used for combined
+// stdout/stderr output and ensures that lines do not overlap.
+type SyncedBuffer struct {
 	b  bytes.Buffer
 	mu sync.Mutex
 }
 
-func (w *CombinedWriter) Write(p []byte) (int, error) {
+// Write writes to the buffer
+func (w *SyncedBuffer) Write(p []byte) (int, error) {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 
 	return w.b.Write(p)
 }
 
-func (w *CombinedWriter) String() string {
+// String returns the buffer as a string
+func (w *SyncedBuffer) String() string {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 
@@ -30,14 +33,15 @@ func (w *CombinedWriter) String() string {
 }
 
 // FirstLine returns the first line of the output trimmed of leading and trailing whitespace
-func (w *CombinedWriter) FirstLine() string {
+func (w *SyncedBuffer) FirstLine() string {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 
 	return strings.TrimSpace(strings.SplitN(w.b.String(), "\n", 1)[0])
 }
 
-func (w *CombinedWriter) Reset() {
+// Reset clears the buffer
+func (w *SyncedBuffer) Reset() {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 
@@ -45,6 +49,7 @@ func (w *CombinedWriter) Reset() {
 }
 
 const letterBytes = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 var randSource = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 // RandomString generates a random string of length n that is not cryptographically safe
