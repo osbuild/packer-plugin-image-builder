@@ -3,6 +3,8 @@ package main
 import (
 	"io"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestTailWriterStringWritethough(t *testing.T) {
@@ -101,20 +103,8 @@ func TestTailWriterLastLines(t *testing.T) {
 		for _, d := range tt.data {
 			tw.Write([]byte(d))
 		}
-		if got := tw.LastLines(tt.lines); !equal(got, tt.want) {
-			t.Errorf("unexpected last lines: got %q, want %q", got, tt.want)
+		if diff := cmp.Diff(tt.want, tw.LastLines(tt.lines)); diff != "" {
+			t.Errorf("unexpected last lines: %s", diff)
 		}
 	}
-}
-
-func equal(a, b []string) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i := range a {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-	return true
 }
