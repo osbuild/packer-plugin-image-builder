@@ -55,7 +55,7 @@ Create a packer template named `template.pkr.hcl`:
 packer {
   required_plugins {
     image-builder = {
-      source = "github.com/lzap/image-builder"
+      source = "github.com/osbuild/image-builder"
       version = ">= 0.0.2"
     }
   }
@@ -116,7 +116,7 @@ Create a packer template named `template.pkr.hcl`:
 packer {
   required_plugins {
     image-builder = {
-      source = "github.com/lzap/image-builder"
+      source = "github.com/osbuild/image-builder"
       version = ">= 0.0.2"
     }
   }
