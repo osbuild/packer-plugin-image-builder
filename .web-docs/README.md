@@ -10,7 +10,7 @@ To install this plugin, copy and paste this code into your Packer configuration,
 packer {
   required_plugins {
     image-builder = {
-      source = "github.com/lzap/image-builder"
+      source = "github.com/osbuild/image-builder"
       version = ">= 0.0.1"
     }
   }
@@ -20,7 +20,7 @@ packer {
 Alternatively, you can use `packer plugins install` to manage installation of this plugin.
 
 ```sh
-$ packer plugins install github.com/lzap/image-builder
+$ packer plugins install github.com/osbuild/image-builder
 ```
 
-Visit the project page for more information and examples: github.com/lzap/packer-plugin-image-builder
+Visit the project page for more information and examples: github.com/osbuild/packer-plugin-image-builder
