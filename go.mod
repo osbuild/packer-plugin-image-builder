@@ -1,11 +1,11 @@
 module github.com/osbuild/packer-plugin-image-builder
 
-go 1.23.4
+go 1.25.0
 
 require (
 	github.com/hashicorp/hcl/v2 v2.19.1
 	github.com/zclconf/go-cty v1.13.3
-	golang.org/x/crypto v0.32.0
+	golang.org/x/crypto v0.49.0
 	gopkg.in/yaml.v2 v2.2.8
 )
 
@@ -54,17 +54,17 @@ require (
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29 // indirect
-	golang.org/x/net v0.25.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
+	golang.org/x/net v0.51.0 // indirect
+	golang.org/x/text v0.35.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 )
 
 require (
-	al.essio.dev/pkg/shellescape v1.5.1
+	al.essio.dev/pkg/shellescape v1.6.0
 	github.com/google/go-cmp v0.6.0
 	github.com/hashicorp/logutils v1.0.0
 	github.com/hashicorp/packer-plugin-sdk v0.5.2
-	golang.org/x/sys v0.29.0 // indirect
+	golang.org/x/sys v0.42.0 // indirect
 )
 
 replace github.com/zclconf/go-cty => github.com/nywilken/go-cty v1.13.3 // added by packer-sdc fix as noted in github.com/hashicorp/packer-plugin-sdk/issues/187
